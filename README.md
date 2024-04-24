@@ -6,16 +6,6 @@
 
 一个免费开源的中后台管理系统基础解决方案，基于 Vue3、TypeScript、Element Plus、 Pinia 和 Vue CLI 5.x
 
-- Electron 桌面版: [v3-electron](https://github.com/un-pany/v3-electron)
-
-## 📚 文档
-
-[简体中文](https://juejin.cn/post/6963876125428678693) | [English Docs](./README.en.md)
-
-## 国内仓库
-
-[Gitee](https://gitee.com/un-pany/v3-admin)
-
 ## 预览
 
 | 位置         | 账号            | 链接                                       |
@@ -156,24 +146,4 @@ pnpm deploy
 - `wip` 开发中
 - `mod` 不确定分类的修改
 
-## 站在巨人的肩膀上
 
-- [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
-- [vue3-composition-admin](https://github.com/rcyj-FED/vue3-composition-admin)
-- [vue-vben-admin](https://github.com/anncwb/vue-vben-admin)
-- [d2-admin](https://github.com/d2-projects/d2-admin)
-- [vue-typescript-admin-template](https://github.com/Armour/vue-typescript-admin-template)
-- [vue3-antd-admin](https://github.com/buqiyuan/vue3-antd-admin)
-
-## 交流群
-
-QQ 群：1014374415（左）&& 加我微信，拉你进微信群（右）
-
-![qq.png](./src/assets/docs/qq.png)
-![wechat.png](./src/assets/docs/wechat.png)
-
-## 📄 License
-
-[MIT](https://github.com/un-pany/v3-admin/blob/master/LICENSE)
-
-Copyright (c) 2021 UNPany
