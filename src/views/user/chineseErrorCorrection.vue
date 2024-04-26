@@ -42,33 +42,25 @@ const drawerClose = () => {
 }
 
 const confirmClick = async(value:any) => {
-  if (/^[\u4e00-\u9fa5]+$/.test(textarea.value) || value === 2) {
-    if (value === 2 && !fileListitem.value) {
-      return ElMessage({
-        message: '请上传文件',
-        type: 'error',
-        duration: 2000
-      })
-    }
-
-    const fd = new FormData()
-    const userIdValue:any = localStorage.getItem('userId')
-    const languageValue:any = 0
-    const typeValue:any = value === 1 ? 0 : 1
-    fd.append('userId', userIdValue)
-    fd.append('language', languageValue)
-    fd.append('type', typeValue)
-    value === 1 && fd.append('content', textarea.value)
-    value === 2 && fd.append('file', fileListitem.value)
-    const res = await errorCorrectionApi(fd)
-    resuletTextarea.value = res.data.result
-  } else {
-    ElMessage({
-      message: '请勿输入英文',
+  if (value === 2 && !fileListitem.value) {
+    return ElMessage({
+      message: '请上传文件',
       type: 'error',
       duration: 2000
     })
   }
+
+  const fd = new FormData()
+  const userIdValue:any = localStorage.getItem('userId')
+  const languageValue:any = 0
+  const typeValue:any = value === 1 ? 0 : 1
+  fd.append('userId', userIdValue)
+  fd.append('language', languageValue)
+  fd.append('type', typeValue)
+  value === 1 && fd.append('content', textarea.value)
+  value === 2 && fd.append('file', fileListitem.value)
+  const res = await errorCorrectionApi(fd)
+  resuletTextarea.value = res.data.result
 }
 const beforeUpload = () => {
   if (fileList.value.length > 1) {

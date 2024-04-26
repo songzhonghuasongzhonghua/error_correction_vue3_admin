@@ -42,34 +42,25 @@ const drawerClose = () => {
   console.log('222')
 }
 const confirmClick = async(value:any) => {
-  if (/^[A-Za-z]+$/.test(textarea.value) || value === 2) {
-    console.log(fileListitem.value, 'fileListitem.valuefileListitem.value')
-    if (value === 2 && !fileListitem.value) {
-      return ElMessage({
-        message: '请上传文件',
-        type: 'error',
-        duration: 2000
-      })
-    }
-    const fd = new FormData()
-    const userIdValue:any = localStorage.getItem('userId')
-    const languageValue:any = 1
-    const typeValue:any = value === 1 ? 0 : 1
-    fd.append('userId', userIdValue)
-    fd.append('language', languageValue)
-    fd.append('type', typeValue)
-    value === 1 && fd.append('content', textarea.value)
-    value === 2 && fd.append('file', fileListitem.value)
-    const res = await errorCorrectionApi(fd)
-    console.log(res, '2222222222')
-    resuletTextarea.value = res.data.result
-  } else {
-    ElMessage({
-      message: '请勿输入中文',
+  if (value === 2 && !fileListitem.value) {
+    return ElMessage({
+      message: '请上传文件',
       type: 'error',
       duration: 2000
     })
   }
+  const fd = new FormData()
+  const userIdValue:any = localStorage.getItem('userId')
+  const languageValue:any = 1
+  const typeValue:any = value === 1 ? 0 : 1
+  fd.append('userId', userIdValue)
+  fd.append('language', languageValue)
+  fd.append('type', typeValue)
+  value === 1 && fd.append('content', textarea.value)
+  value === 2 && fd.append('file', fileListitem.value)
+  const res = await errorCorrectionApi(fd)
+  console.log(res, '2222222222')
+  resuletTextarea.value = res.data.result
 }
 const onRemove = () => {
   console.log(111111111111)

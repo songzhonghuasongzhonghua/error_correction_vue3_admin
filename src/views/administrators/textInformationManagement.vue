@@ -7,7 +7,8 @@ const tableData = ref([])
 
 const formInline = reactive({
   id: '',
-  listId: ''
+  listId: '',
+  username: ''
 })
 const background = ref(false)
 const total = ref(1)
@@ -15,12 +16,13 @@ const page = ref(1)
 const pageSize = ref(10)
 const small = ref(false)
 const disabled = ref(false)
-const getList = async(ids?:any, listId?:any) => {
+const getList = async(ids?:any, name?:any, listId?:any) => {
   const parmas = {
     page: page.value,
     pageSize: pageSize.value,
     userId: ids ?? formInline.id,
-    listId: listId ?? formInline.listId
+    listId: listId ?? formInline.listId,
+    username: name ?? formInline.username
 
   }
   const res:any = await getTxtList(parmas)
@@ -41,7 +43,7 @@ const handleCurrentChange = (val: number) => {
 }
 
 const onSubmit = () => {
-  getList(formInline.id, formInline.listId)
+  getList(formInline.id, formInline.username, formInline.listId)
 }
 const confirmEvent = async(scope:any) => {
   const parmas = {
@@ -66,6 +68,9 @@ const confirmEvent = async(scope:any) => {
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
           <el-form-item label="用户ID:">
             <el-input v-model="formInline.id" placeholder="请输入用户ID" clearable />
+          </el-form-item>
+          <el-form-item label="用户名称:">
+            <el-input v-model="formInline.username" placeholder="请输入用户名称" clearable />
           </el-form-item>
           <el-form-item label="文本ID:">
             <el-input v-model="formInline.listId" placeholder="请输入文本ID" clearable />

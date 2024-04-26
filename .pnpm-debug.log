@@ -1,0 +1,23 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 info pnpm": {
+    "err": {
+      "name": "Error",
+      "message": "not found: instal",
+      "code": "ENOENT",
+      "stack": "Error: not found: instal\n    at getNotFoundError (C:\\Users\\宋忠华\\AppData\\Roaming\\nvm\\v16.10.0\\node_modules\\pnpm\\dist\\pnpm.cjs:47811:51)\n    at Function.whichSync [as sync] (C:\\Users\\宋忠华\\AppData\\Roaming\\nvm\\v16.10.0\\node_modules\\pnpm\\dist\\pnpm.cjs:47888:13)\n    at getCommandAbsolutePathSync (C:\\Users\\宋忠华\\AppData\\Roaming\\nvm\\v16.10.0\\node_modules\\pnpm\\dist\\pnpm.cjs:49453:44)\n    at Object.default_1 [as default] (C:\\Users\\宋忠华\\AppData\\Roaming\\nvm\\v16.10.0\\node_modules\\pnpm\\dist\\pnpm.cjs:49462:32)\n    at C:\\Users\\宋忠华\\AppData\\Roaming\\nvm\\v16.10.0\\node_modules\\pnpm\\dist\\pnpm.cjs:129798:34"
+    }
+  },
+  "2 error pnpm": {
+    "code": "ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL",
+    "prefix": "S:\\桌面\\error_correction_vue3_admin",
+    "err": {
+      "name": "pnpm",
+      "message": "not found: instal",
+      "code": "ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL",
+      "stack": "Error: not found: instal\n    at getNotFoundError (C:\\Users\\宋忠华\\AppData\\Roaming\\nvm\\v16.10.0\\node_modules\\pnpm\\dist\\pnpm.cjs:47811:51)\n    at Function.whichSync [as sync] (C:\\Users\\宋忠华\\AppData\\Roaming\\nvm\\v16.10.0\\node_modules\\pnpm\\dist\\pnpm.cjs:47888:13)\n    at getCommandAbsolutePathSync (C:\\Users\\宋忠华\\AppData\\Roaming\\nvm\\v16.10.0\\node_modules\\pnpm\\dist\\pnpm.cjs:49453:44)\n    at Object.default_1 [as default] (C:\\Users\\宋忠华\\AppData\\Roaming\\nvm\\v16.10.0\\node_modules\\pnpm\\dist\\pnpm.cjs:49462:32)\n    at C:\\Users\\宋忠华\\AppData\\Roaming\\nvm\\v16.10.0\\node_modules\\pnpm\\dist\\pnpm.cjs:129798:34"
+    }
+  }
+}

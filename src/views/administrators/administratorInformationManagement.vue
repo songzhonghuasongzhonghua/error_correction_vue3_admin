@@ -6,7 +6,8 @@ import { formatDate, formatDateTime } from '../../utils/index'
 
 const formInline = reactive({
   id: '',
-  type: 1
+  type: 1,
+  userName: ''
 })
 const form = reactive({
   id: '',
@@ -23,18 +24,19 @@ const formRef = ref()
 const background = ref(false)
 const total = ref(1)
 const page = ref(1)
-const pageSize = ref(1)
+const pageSize = ref(10)
 const small = ref(false)
 const disabled = ref(false)
 onMounted(() => {
   getList()
 })
-const getList = async(ids?:any) => {
+const getList = async(ids?:any, name?:any) => {
   const parmas = {
     page: page.value,
     pageSize: pageSize.value,
     type: formInline.type,
-    id: ids ?? formInline.id
+    id: ids ?? formInline.id,
+    username: name ?? formInline.userName
   }
   const res = await getAdminUserList(parmas)
   console.log(res.data.info.records, 'res')
@@ -50,7 +52,7 @@ const handleCurrentChange = (val: number) => {
   getList()
 }
 const onSubmit = () => {
-  getList(formInline.id)
+  getList(formInline.id, formInline.userName)
 }
 
 const addFn = () => {
@@ -77,10 +79,10 @@ const handleClose = (done: () => void) => {
 }
 const formRules = reactive<any>({
   username: [
-    { required: true, message: '请输入用户名称', trigger: 'blur' }
+    { required: true, message: '请输入管理员名称', trigger: 'blur' }
   ],
   phone: [
-    { required: true, message: '请输入用户手机号', trigger: 'blur' }
+    { required: true, message: '请输入管理员手机号', trigger: 'blur' }
   ],
 
   password: [
@@ -155,6 +157,9 @@ const confirmEvent = async(scope:any) => {
     getList()
   }
 }
+const disabledFn = (scope:any) => {
+  return scope.row.username === 'admin' && localStorage.getItem('userName') !== 'admin'
+}
 </script>
 
 <template>
@@ -162,8 +167,11 @@ const confirmEvent = async(scope:any) => {
     <div class="main">
       <div class="buttons">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-          <el-form-item label="ID:">
-            <el-input v-model="formInline.id" placeholder="请输入用户ID" clearable />
+          <el-form-item label="管理员ID:">
+            <el-input v-model="formInline.id" placeholder="请输入管理员ID" clearable />
+          </el-form-item>
+          <el-form-item label="管理员名称:">
+            <el-input v-model="formInline.userName" placeholder="请输入管理员名称" clearable />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">
@@ -177,9 +185,9 @@ const confirmEvent = async(scope:any) => {
       </div>
       <el-table :data="tableData" style="width: 100%" fit>
         <!-- <el-table-column fixed prop="date" label="Date" /> -->
-        <el-table-column prop="id" label="用户ID" />
-        <el-table-column prop="username" label="用户名称" />
-        <el-table-column prop="phone" label="用户手机号" />
+        <el-table-column prop="id" label="管理员ID" />
+        <el-table-column prop="username" label="管理员名称" />
+        <el-table-column prop="phone" label="管理员手机号" />
         <!-- <el-table-column prop="creatTime" label="创建时间" /> -->
         <!-- <el-table-column prop="birthday" label="生日日期" /> -->
         <el-table-column fixed="right" label="操作栏">
@@ -192,12 +200,12 @@ const confirmEvent = async(scope:any) => {
               @confirm="confirmEvent(scope)"
             >
               <template #reference>
-                <el-button type="danger" size="small">
+                <el-button type="danger" :disabled="scope.row.username==='admin'" size="small">
                   删除
                 </el-button>
               </template>
             </el-popconfirm>
-            <el-button link type="primary" size="small" @click="editFn(scope.row)">
+            <el-button link type="primary" :disabled="disabledFn(scope)" size="small" @click="editFn(scope.row)">
               编辑
             </el-button>
           </template>

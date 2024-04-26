@@ -5,7 +5,8 @@ import { formatDate, formatDateTime } from '../../utils/index'
 import { ElMessage, ElMessageBox } from 'element-plus'
 const formInline = reactive({
   id: '',
-  type: 0
+  type: 0,
+  username: ''
 })
 const form = reactive({
   id: '',
@@ -25,16 +26,18 @@ const tableData = ref([])
 const dialogVisible = ref(false)
 const dialogType = ref()
 const formRef = ref()
+const formDisable = ref()
 onMounted(() => {
   getList()
 })
 
-const getList = async(ids?:any) => {
+const getList = async(ids?:any, name?:any) => {
   const parmas = {
     page: page.value,
     pageSize: pageSize.value,
     type: formInline.type,
-    id: ids ?? formInline.id
+    id: ids ?? formInline.id,
+    username: name ?? formInline.username
   }
   const res = await getAdminUserList(parmas)
   console.log(res.data.info.records, 'res')
@@ -42,7 +45,7 @@ const getList = async(ids?:any) => {
   total.value = res.data.info.total
 }
 const onSubmit = () => {
-  getList(formInline.id)
+  getList(formInline.id, formInline.username)
 }
 
 const handleSizeChange = (val: number) => {
@@ -77,28 +80,33 @@ const confirmEvent = async(scope:any) => {
     getList()
   }
 }
-const editFn = (scope:any) => {
+const lookFn = (scope:any) => {
   console.log(scope, 'scopescopescopescope')
   form.birth = formatDate(scope.birth)
   form.id = scope.id
   form.password = scope.password
   form.phone = scope.phone
   form.username = scope.username
-  dialogType.value = 'edit'
+  dialogType.value = 'look'
   dialogVisible.value = true
+  formDisable.value = true
 }
 const handleClose = (done: () => void) => {
-  ElMessageBox.confirm(`${dialogType.value === 'edit' ? '确定退出编辑?' : '确定退出新增?'}`)
-    .then(() => {
-      form.birth = ''
-      form.password = ''
-      form.phone = ''
-      form.username = ''
-      done()
-    })
-    .catch(() => {
-      // catch error
-    })
+  if (dialogType.value === 'look') {
+    done()
+  } else {
+    ElMessageBox.confirm(`${dialogType.value === 'edit' ? '确定退出编辑?' : '确定退出新增?'}`)
+      .then(() => {
+        form.birth = ''
+        form.password = ''
+        form.phone = ''
+        form.username = ''
+        done()
+      })
+      .catch(() => {
+        // catch error
+      })
+  }
 }
 const elDialogOn = async() => {
   formRef.value.validate(async(valid: boolean) => {
@@ -163,8 +171,11 @@ const formRules = reactive<any>({
     <div class="main">
       <div class="buttons">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-          <el-form-item label="ID:">
+          <el-form-item label="用户ID:">
             <el-input v-model="formInline.id" placeholder="请输入用户ID" clearable />
+          </el-form-item>
+          <el-form-item label="用户名称:">
+            <el-input v-model="formInline.username" placeholder="请输入用户名称" clearable />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">
@@ -213,8 +224,8 @@ const formRules = reactive<any>({
               </template>
             </el-popconfirm>
 
-            <el-button link type="primary" size="small" @click="editFn(scope.row)">
-              编辑
+            <el-button link type="primary" size="small" @click="lookFn(scope.row)">
+              查看
             </el-button>
           </template>
         </el-table-column>
@@ -235,13 +246,13 @@ const formRules = reactive<any>({
       <div class="elDialog">
         <el-dialog
           v-model="dialogVisible"
-          :title="`${dialogType==='edit'?'编辑':'新增'}`"
+          :title="`${dialogType==='look'?'查看':'新增'}`"
           width="500px"
           :close-on-click-modal="false"
           :destroy-on-close="true"
           :before-close="handleClose"
         >
-          <el-form ref="formRef" :model="form" :rules="formRules" label-width="auto" style="max-width: 300px">
+          <el-form ref="formRef" :disabled="formDisable" :model="form" :rules="formRules" label-width="auto" style="max-width: 300px">
             <el-form-item label="用户名称" prop="username">
               <el-input v-model="form.username" />
             </el-form-item>
@@ -265,9 +276,9 @@ const formRules = reactive<any>({
           <template #footer>
             <div class="dialog-footer">
               <el-button @click="dialogVisible = false">
-                取消
+                {{ dialogType==='look'?'返回': '取消' }}
               </el-button>
-              <el-button type="primary" @click="elDialogOn">
+              <el-button v-if=" dialogType!=='look'" type="primary" @click="elDialogOn">
                 提交
               </el-button>
             </div>

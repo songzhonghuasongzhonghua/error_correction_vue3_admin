@@ -44,6 +44,7 @@ export const useUserStore = defineStore({
 
             localStorage.setItem('roles', res.data.info.user.type === 0 ? 'user' : 'admin')
             localStorage.setItem('userId', res.data.info.user.id)
+            localStorage.setItem('userName', res.data.info.user.username)
             setToken(res.data.info.token)
             this.token = res.data.info.token
             this.userInfos = res.data.info.user

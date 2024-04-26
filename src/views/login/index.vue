@@ -243,9 +243,9 @@ const codeUrl = ref<string>('https://bpic.588ku.com/element_origin_min_pic/01/37
 const loginForm = reactive<ILoginForm>({
   username: '',
   password: '',
-  code: '5374',
+  code: '',
   codeToken: '',
-  phoneNumber: '13764602732'
+  phoneNumber: ''
 })
 const registerForm = reactive<registerLoginForm>({
   registerUsername: '',

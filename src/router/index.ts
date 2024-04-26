@@ -42,7 +42,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import('@/views/user/chineseErrorCorrection.vue'),
         name: 'ChineseErrorCorrection',
         meta: {
-          title: '中文纠正',
+          title: '中文文本纠错',
           icon: 'dashboard'
         }
       }
@@ -58,7 +58,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import('@/views/user/englishErrorCorrection.vue'),
         name: 'EnglishErrorCorrection',
         meta: {
-          title: '英文纠正',
+          title: '英文文本纠错',
           icon: 'dashboard'
         }
       }
